@@ -142,7 +142,6 @@
   <ItemGroup>
     <ClInclude Include="Clock.h" />
     <ClInclude Include="IGRA_CA2.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RobotArm.h" />
     <ClInclude Include="Shapes.h" />
@@ -154,7 +153,6 @@
   <ItemGroup>
     <ClCompile Include="Clock.cpp" />
     <ClCompile Include="IGRA_CA2.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RobotArm.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="Square.cpp" />

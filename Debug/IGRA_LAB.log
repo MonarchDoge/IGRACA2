@@ -1,12 +1,1 @@
-﻿  Player.cpp
-c:\users\seppukudoge\documents\sp stuff\2017 semester 2\igra\igra_lab\igra_lab\player.h(9): error C3646: 'material': unknown override specifier
-c:\users\seppukudoge\documents\sp stuff\2017 semester 2\igra\igra_lab\igra_lab\player.h(9): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\seppukudoge\documents\sp stuff\2017 semester 2\igra\igra_lab\igra_lab\player.cpp(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\seppukudoge\documents\sp stuff\2017 semester 2\igra\igra_lab\igra_lab\player.cpp(15): error C2065: 'material': undeclared identifier
-c:\users\seppukudoge\documents\sp stuff\2017 semester 2\igra\igra_lab\igra_lab\player.cpp(15): error C3861: 'SetMaterial': identifier not found
-c:\users\seppukudoge\documents\sp stuff\2017 semester 2\igra\igra_lab\igra_lab\player.cpp(18): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\seppukudoge\documents\sp stuff\2017 semester 2\igra\igra_lab\igra_lab\player.cpp(20): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\seppukudoge\documents\sp stuff\2017 semester 2\igra\igra_lab\igra_lab\player.cpp(43): error C3861: 'degToRad': identifier not found
-c:\users\seppukudoge\documents\sp stuff\2017 semester 2\igra\igra_lab\igra_lab\player.cpp(44): error C3861: 'degToRad': identifier not found
-  Camera.cpp
-  Generating Code...
+﻿  IGRA_LAB.vcxproj -> C:\Users\SeppukuDoge\Documents\GitHub\IGRACA2\Debug\IGRA_LAB.exe

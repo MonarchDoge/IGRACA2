@@ -1,7 +1,7 @@
 // IGRA_LAB.cpp : Defines the entry point for the application.
 
 #include "stdafx.h"
-#include "IGRA_LAB.h"
+#include "IGRA_CA2.h"
 #include "resource.h"
 #include <math.h>
 #include <iostream>
