@@ -1,0 +1,25 @@
+﻿  IGRA_LAB.cpp
+c:\users\emperorwee\documents\visual studio 2017\projects\igra_lab\igra_lab.cpp(334): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\emperorwee\documents\visual studio 2017\projects\igra_lab\igra_lab.cpp(371): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\emperorwee\documents\visual studio 2017\projects\igra_lab\igra_lab.cpp(377): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\emperorwee\documents\visual studio 2017\projects\igra_lab\igra_lab.cpp(423): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\emperorwee\documents\visual studio 2017\projects\igra_lab\igra_lab.cpp(425): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\emperorwee\documents\visual studio 2017\projects\igra_lab\igra_lab.cpp(436): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+IGRA_LAB.obj : error LNK2019: unresolved external symbol __imp_wglCreateContext referenced in function "int __cdecl InitOpenGL(void)" (?InitOpenGL@@YAHXZ)
+IGRA_LAB.obj : error LNK2019: unresolved external symbol __imp_wglMakeCurrent referenced in function "int __cdecl InitOpenGL(void)" (?InitOpenGL@@YAHXZ)
+IGRA_LAB.obj : error LNK2019: unresolved external symbol __imp_glBegin referenced in function "void __cdecl DrawBlockySpiral(int)" (?DrawBlockySpiral@@YAXH@Z)
+Square.obj : error LNK2001: unresolved external symbol __imp_glBegin
+IGRA_LAB.obj : error LNK2019: unresolved external symbol __imp_glClear referenced in function "void __cdecl DrawGLScene(void)" (?DrawGLScene@@YAXXZ)
+IGRA_LAB.obj : error LNK2019: unresolved external symbol __imp_glClearColor referenced in function "void __cdecl DrawGLScene(void)" (?DrawGLScene@@YAXXZ)
+IGRA_LAB.obj : error LNK2019: unresolved external symbol __imp_glColor3f referenced in function "void __cdecl DrawBlockySpiral(int)" (?DrawBlockySpiral@@YAXH@Z)
+Square.obj : error LNK2001: unresolved external symbol __imp_glColor3f
+IGRA_LAB.obj : error LNK2019: unresolved external symbol __imp_glEnd referenced in function "void __cdecl DrawBlockySpiral(int)" (?DrawBlockySpiral@@YAXH@Z)
+Square.obj : error LNK2001: unresolved external symbol __imp_glEnd
+IGRA_LAB.obj : error LNK2019: unresolved external symbol __imp_glLoadIdentity referenced in function "void __cdecl DrawGLScene(void)" (?DrawGLScene@@YAXXZ)
+IGRA_LAB.obj : error LNK2019: unresolved external symbol __imp_glMatrixMode referenced in function "void __cdecl ReSizeGLScene(int,int)" (?ReSizeGLScene@@YAXHH@Z)
+IGRA_LAB.obj : error LNK2019: unresolved external symbol __imp_glVertex2f referenced in function "void __cdecl DrawBlockySpiral(int)" (?DrawBlockySpiral@@YAXH@Z)
+Square.obj : error LNK2001: unresolved external symbol __imp_glVertex2f
+IGRA_LAB.obj : error LNK2019: unresolved external symbol __imp_glViewport referenced in function "void __cdecl ReSizeGLScene(int,int)" (?ReSizeGLScene@@YAXHH@Z)
+IGRA_LAB.obj : error LNK2019: unresolved external symbol gluOrtho2D referenced in function "void __cdecl ReSizeGLScene(int,int)" (?ReSizeGLScene@@YAXHH@Z)
+IGRA_LAB.obj : error LNK2019: unresolved external symbol "public: void __cdecl Square::HandleMouseMove(float,float)" (?HandleMouseMove@Square@@QEAAXMM@Z) referenced in function "__int64 __cdecl WndProc(struct HWND__ *,unsigned int,unsigned __int64,__int64)" (?WndProc@@YA_JPEAUHWND__@@I_K_J@Z)
+C:\Users\EmperorWee\Documents\Visual Studio 2017\Projects\IGRA_LAB\x64\Debug\IGRA_LAB.exe : fatal error LNK1120: 13 unresolved externals
