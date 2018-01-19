@@ -39,10 +39,10 @@
     <ClInclude Include="Clock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RobotArm.h">
+    <ClInclude Include="IGRA_CA2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IGRA_CA2.h">
+    <ClInclude Include="Tank.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,10 +62,10 @@
     <ClCompile Include="Clock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RobotArm.cpp">
+    <ClCompile Include="IGRA_CA2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IGRA_CA2.cpp">
+    <ClCompile Include="Tank.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

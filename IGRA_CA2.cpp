@@ -14,7 +14,7 @@
 
 #include "Square.h"
 #include "Shapes.h"
-#include "RobotArm.h"
+#include "Tank.h"
 #include <vector>
 #include "Vector3f.h"
 #include "Clock.h"
@@ -34,8 +34,8 @@ float yPosCircle = 0.0;
 int width = 400;
 int height = 400;
 HWND hWnd = NULL;
-//Square *sq = new Square; //dont forget
-RobotArm * newArm;
+//Added for IGRA CA2
+Tank * newTank;
 float yrot = 0.0;
 GLUquadric *mySphere;
 __int64 startTimeInCounts = 0;
@@ -355,7 +355,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	case WM_KEYDOWN:							// Is A Key Being Held Down?
 	{
-		newArm->HandleKeyDown(wParam);
+		newTank->HandleKeyDown(wParam);
 		keys[wParam] = TRUE;					// If So, Mark It As TRUE
 		return 0;								// Jump Back
 	}
@@ -598,7 +598,7 @@ int InitOpenGL() {
 	clock = new Clock;
 	clock->Start();
 
-	newArm = new RobotArm();
+	newTank = new Tank();
 
 	return 1;
 }
@@ -1486,7 +1486,7 @@ void DrawGLScene() {
 	//}
 
 	glEnable(GL_LIGHTING);
-	newArm->Draw();
+	newTank->Draw();
 	glEnd();
 	glDisable(GL_LIGHTING);
 	glPopMatrix();
