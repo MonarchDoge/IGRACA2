@@ -4,34 +4,33 @@
 #include "Tank.h"
 #include <math.h>
 #include <stdio.h>
+#include "Clock.h"
 
 //for igra - openGL
 #include <gl\GL.h>
 #include<gl\GLU.h>
 
-
 Tank::Tank() {
 	redPlasticMaterial = {
-		{ 0.4f, 0.0f, 0.0f, 1.0f }, // Ambient 
+	{ 0.4f, 0.0f, 0.0f, 1.0f }, // Ambient 
 	{ 0.9f, 0.0f, 0.0f, 1.0f }, // Diffuse 
 	{ 0.8f, 0.8f, 0.8f, 1.0f }, // Specular  
 	32.0    // Shininess 
 	};
 	greenPlasticMaterial = {
-		{ 0.0f, 0.4f, 0.0f, 1.0f }, // Ambient 
+	{ 0.0f, 0.4f, 0.0f, 1.0f }, // Ambient 
 	{ 0.0f, 0.9f, 0.0f, 1.0f }, // Diffuse 
 	{ 0.8f, 0.8f, 0.8f, 1.0f }, // Specular  
 	32.0    // Shininess 
 	};
 	yellowPlasticMaterial = {
-		{ 0.4f,  0.4f, 0.0f, 1.0f }, // Ambient 
+	{ 0.4f,  0.4f, 0.0f, 1.0f }, // Ambient 
 	{ 0.9f, 0.9f, 0.0f, 1.0f }, // Diffuse 
 	{ 0.8f, 0.8f, 0.8f, 1.0f }, // Specular  
 	32   // Shininess 
 	};
 	TurrentHeight = 1.5;
 	BuildTree();
-
 }
 
 void Tank::Draw() {
@@ -53,7 +52,6 @@ void Tank::DrawFunction(int id)
 	}
 }
 
-
 void Tank::DrawTree(TreeNode* root) {
 
 	if (root == 0)
@@ -74,36 +72,44 @@ void Tank::HandleKeyDown(WPARAM wParam) {
 	glPushMatrix();
 	glLoadIdentity();
 	switch (wParam) {
-	case VK_LEFT:
+	case 'W':
 		glMultMatrixf(base->matrix);
-		glRotatef(-10, 0, 0, 1);
+		MoveForward(dist);
 		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+		break;
+	case 'S':
+		glMultMatrixf(base->matrix);
+		MoveForward(-dist);
+		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+		break;
+	case 'D':
+		glMultMatrixf(base->matrix);
+		Rotate(-10, 0, 0, 1);
+		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+		break;
+	case 'A':
+		glMultMatrixf(base->matrix);
+		Rotate(10, 0, 0, 1);
+		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+		break;
+	case VK_LEFT:
+		glMultMatrixf(upperbase->matrix);
+		glRotatef(-10, 0, 0, 1);
+		glGetFloatv(GL_MODELVIEW_MATRIX, upperbase->matrix);
 		break;
 	case VK_RIGHT:
-		glMultMatrixf(base->matrix);
+		glMultMatrixf(upperbase->matrix);
 		glRotatef(10, 0, 0, 1);
-		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+		glGetFloatv(GL_MODELVIEW_MATRIX, upperbase->matrix);
 		break;
 	case VK_UP:
-		MoveForward(0.1);
-		glMultMatrixf(upperbase->matrix);
-		glRotatef(-10, 1, 0, 0);
-		glGetFloatv(GL_MODELVIEW_MATRIX, upperbase->matrix);
-		break;
-	case VK_DOWN:
-		MoveForward(-0.1);
-		glMultMatrixf(upperbase->matrix);
-		glRotatef(10, 1, 0, 0);
-		glGetFloatv(GL_MODELVIEW_MATRIX, upperbase->matrix);
-		break;
-	case VK_PRIOR:
 		glMultMatrixf(turrent->matrix);
-		glRotatef(-10, 1, 0, 0);
+		Rotate(-5, 1, 0, 0);
 		glGetFloatv(GL_MODELVIEW_MATRIX, turrent->matrix);
 		break;
-	case VK_NEXT:
+	case VK_DOWN:
 		glMultMatrixf(turrent->matrix);
-		glRotatef(10, 1, 0, 0);
+		Rotate(5, 1, 0, 0);
 		glGetFloatv(GL_MODELVIEW_MATRIX, turrent->matrix);
 		break;
 	}
@@ -125,18 +131,16 @@ void Tank::DrawBase() {
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, redPlasticMaterial.diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, redPlasticMaterial.specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, redPlasticMaterial.shininess);
-	//gluCylinder(Object, .4, .4, .45, 16, 16);
 	glPushMatrix();
-	glTranslatef(0, -0.2, 0.1);
 	float cubeVertices[][3] = {
-	{ -0.2f, -0.2f, 0.2f }, // v0
-	{ -0.2f, 1.0f, 0.2f }, // v1
-	{ 0.2f, 1.0f, 0.2f }, // v2
-	{ 0.2f, -0.2f, 0.2f }, // v3
-	{ -0.5f, -0.5f, -0.5f }, // v4
-	{ -1.0f, 0.5f, -0.5f }, // v5
-	{ 1.0f, 0.5f, -0.5f }, // v6
-	{ 0.5f, -0.5f, -0.5f }, // v7
+	{ -0.5f, -1.0f, 0.3f }, // v0
+	{ -0.2f, 0.8f, 0.3f }, // v1
+	{ 0.2f, 0.8f, 0.3f }, // v2
+	{ 0.5f, -1.0f, 0.3f }, // v3
+	{ -0.5f, -1.0f, -0.6f }, // v4
+	{ -0.2f, 1.0f, -0.6f }, // v5
+	{ 0.2f, 1.0f, -0.6f }, // v6
+	{ 0.5f, -1.0f, -0.6f }, // v7
 	};
 
 	int cubeIndices[] = {
@@ -185,19 +189,46 @@ void Tank::DrawTurrent() {
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, greenPlasticMaterial.diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, greenPlasticMaterial.specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, greenPlasticMaterial.shininess);
+	glPushMatrix();
+	glRotatef(-45, 1, 0, 0);
 	gluCylinder(Object, .15, .15, TurrentHeight, 16, 16);
+	glPopMatrix();
 }
 
 void Tank::MoveForward(double dist) {
-	// Movement must be based on orientation of player
-	double deltaX = 0;
-	double deltaZ = 0;
-	// Calculate translation as based on current yRotation angle 
-	deltaX = -dist * sin(degToRad(yRotation));
-	deltaZ = -dist * cos(degToRad(yRotation));
-	// Update the position
-	xPos = xPos + deltaX;
-	zPos = zPos + deltaZ;
+	//// Movement must be based on orientation of player
+	//double deltaX = 0;
+	//double deltaZ = 0;
+	//double deltaY = 0;
+
+	//// Calculate translation as based on current yRotation angle
+	//deltaX = -dist * sin(degToRad(yRotation));
+	//deltaY = dist * cos(degToRad(yRotation));
+
+	//// Update the position
+	//xPos = xPos + deltaX;
+	//yPos = yPos + deltaY;
+	//glTranslatef(xPos, yPos, 0);
+
+	glTranslatef(0, dist, 0);
+}
+
+void Tank::Rotate(double angle, float x, float y, float z) {
+	// Update the rotation (yaw) 
+	if (x == 1) {
+		yRotation = yRotation + angle;
+	}
+	if (yRotation > -45)
+	{
+		yRotation = -45;
+		angle = 0;
+	}
+	if (yRotation < -90)
+	{
+		yRotation = -90;
+		angle = 0;
+	}
+	glRotatef(angle, x, y, z);
 }
 
 float Tank::degToRad(float degAngle) {

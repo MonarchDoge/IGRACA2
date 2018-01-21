@@ -27,14 +27,21 @@ Material;
 
 class Tank {
 public:
-	// Texture image      // Following Nodes need to available in HandleKeyDown        
-	TreeNode * base;
+	// Texture image  
+	// Following Nodes need to available in HandleKeyDown        
+	TreeNode* base;
 	TreeNode* upperbase;
 	TreeNode* turrent;
 
 	Material redPlasticMaterial;
 	Material yellowPlasticMaterial;
 	Material greenPlasticMaterial;
+
+	double xPos = 0;
+	double yPos = 0; 
+	double zPos = 0;
+
+	double yRotation = -45;
 
 	float TurrentHeight;
 	Tank();
@@ -46,7 +53,9 @@ public:
 	void DrawUpperBase();
 	void DrawTurrent();
 	void MoveForward(double dist);
+	void Rotate(double angle, float x, float y, float z);
 	float degToRad(float degAngle);
 	void HandleKeyDown(WPARAM wParam);
+	~Tank();
 };
 

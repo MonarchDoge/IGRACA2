@@ -599,7 +599,6 @@ int InitOpenGL() {
 	clock->Start();
 
 	newTank = new Tank();
-
 	return 1;
 }
 
@@ -1439,6 +1438,33 @@ void GottaGoFast() {
 	}
 }
 
+//IGRA CA2
+void DrawDankPlane() {
+	glEnable(GL_TEXTURE_2D);
+	glColor3f(1, 1, 1);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 64, 64, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	// Draw a rectangle with a texture mapped onto it
+	glBegin(GL_POLYGON);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(-9.0, -0.55, 10); // v0 Left Bottom
+	glTexCoord2f(0.0, 1.0);
+	glVertex3f(-9.0, -0.55, -8); // v1 Left Top
+	glTexCoord2f(1.0, 1.0);
+	glVertex3f(9.0, -0.55, -8); // v2 Right Top
+	glTexCoord2f(1.0, 0.0);
+	glVertex3f(9.0, -0.55, 10); // v3 Right Bottom
+	glEnd();
+	glDisable(GL_TEXTURE_2D); // stop colours from overriding
+}
+
 //ayy lmao
 void DrawGLScene() {
 	void StartTimer();
@@ -1455,38 +1481,9 @@ void DrawGLScene() {
 	// Draw axis system
 	Draw3D_AxisSystem();
 
-	//DrawNormalPyramid(GL_TRIANGLES);
-	//DrawNormalPyramid(GL_LINE_LOOP);
-
-	//glPushMatrix();
-	//double timePassedAbsInSeconds = GetTimePassedSinceStart(); 
-	//yRot = (timePassedAbsInSeconds)*  rotationalVelocityInDegreesPerSeconds;
-	//glRotatef(yRot, 0, 1, 0);
-	//DrawTexturedCube();
-	//glPopMatrix();
-
-	//double timePassedRelInSeconds = clock->TimePassedSincePreviousTime();
-	//glPushMatrix();
-	//yRot += timePassedRelInSeconds * rotationalVelocityInDegreesPerSeconds;
-	//glRotatef(yRot, 0, 1, 0);
-	//DrawTexturedCube();
-	//glPopMatrix();
-
-	//frameratetimer += timePassedRelInSeconds;
-	//frameratesegment++;
-	//if (frameratetimer >= 1)
-	//{
-	//	float framerate = frameratesegment / frameratetimer;
-	//	string text = std::to_string(framerate);
-	//	std::string str = text + " Frames per second";
-	//	LPSTR s = const_cast<char *>(str.c_str());
-	//	SetWindowTextA(hWnd, s);
-	//	frameratetimer = 0;
-	//	frameratesegment = 0;
-	//}
-
 	glEnable(GL_LIGHTING);
 	newTank->Draw();
+	DrawDankPlane();
 	glEnd();
 	glDisable(GL_LIGHTING);
 	glPopMatrix();
