@@ -1417,6 +1417,7 @@ void DrawGLScene() {
 		0, 1, 0); // Orientation of camera
 	glPushMatrix();
 	glEnable(GL_LIGHTING);
+	newTank->TankRotate();
 	newTank->MoveForward();
 	newTank->Draw();
 	glEnd();

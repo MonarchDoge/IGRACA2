@@ -9,5 +9,5 @@ c:\users\seppukudoge\documents\github\igraca2\tank.cpp(264): warning C4305: 'arg
 c:\users\seppukudoge\documents\github\igraca2\tank.cpp(271): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
 c:\users\seppukudoge\documents\github\igraca2\tank.cpp(318): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\seppukudoge\documents\github\igraca2\tank.cpp(318): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\seppukudoge\documents\github\igraca2\tank.cpp(341): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\seppukudoge\documents\github\igraca2\tank.cpp(338): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
   IGRA_LAB.vcxproj -> C:\Users\SeppukuDoge\Documents\GitHub\IGRACA2\Debug\IGRA_CA2.exe

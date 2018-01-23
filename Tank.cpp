@@ -28,6 +28,7 @@ enum Tankstate {
 Tankstate tankstate;
 Clock* clock;
 double dist = 1;
+double rot  = 1;
 
 Tank::Tank() {
 	redPlasticMaterial = {
@@ -107,13 +108,13 @@ void Tank::HandleKeyDown(WPARAM wParam) {
 		SisPressed = true;
 		break;
 	case 'D':
+		rot = 1;
 		glMultMatrixf(base->matrix);
-		TankRotate(-10);
 		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
 		break;
 	case 'A':
+		rot = -1;
 		glMultMatrixf(base->matrix);
-		TankRotate(10);
 		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
 		break;
 	case VK_LEFT:
@@ -128,12 +129,12 @@ void Tank::HandleKeyDown(WPARAM wParam) {
 		break;
 	case VK_UP:
 		glMultMatrixf(turrent->matrix);
-		Rotate(-5, 1, 0, 0);
+		TurrentRotate(-5);
 		glGetFloatv(GL_MODELVIEW_MATRIX, turrent->matrix);
 		break;
 	case VK_DOWN:
 		glMultMatrixf(turrent->matrix);
-		Rotate(5, 1, 0, 0);
+		TurrentRotate(5);
 		glGetFloatv(GL_MODELVIEW_MATRIX, turrent->matrix);
 		break;
 	}
@@ -161,7 +162,6 @@ void Tank::HandleKeyUp(WPARAM wParam) {
 
 	glPopMatrix();
 }
-
 
 void Tank::DrawBase() {
 	GLUquadric *Object = gluNewQuadric();
@@ -315,19 +315,16 @@ void Tank::MoveForward() {
 
 	currentvelocity += accleration * deltatime;
 	distance += deltatime * currentvelocity;
-	glTranslatef(-dist*distance*sin(degToRad(yRotation)), 0, -dist*distance*cos(degToRad(yRotation)));
+	glTranslatef(distance*sin(degToRad(yRotation)), 0, distance*cos(degToRad(yRotation)));
 }
 
-void Tank::TankRotate(double angle) {
+void Tank::TankRotate() {
 	// Update the rotation (yaw) 
-	yRotation = yRotation + angle;
+	yRotation = yRotation + rot;
 }
 
-void Tank::Rotate(double angle, float x, float y, float z) {
-	// Update the rotation (yaw) 
-	if (x == 1) {
-		Rotationlimit = Rotationlimit + angle;
-	}
+
+void Tank::TurrentRotate(double angle) {
 	if (Rotationlimit > -45)
 	{
 		Rotationlimit = -45;
@@ -338,5 +335,5 @@ void Tank::Rotate(double angle, float x, float y, float z) {
 		Rotationlimit = -90;
 		angle = 0;
 	}
-	glRotatef(angle, x, y, z);
+	glRotatef(angle, 1, 0, 0);
 }

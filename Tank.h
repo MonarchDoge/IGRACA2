@@ -48,7 +48,7 @@ public:
 	float TurrentHeight;
 
 	double dist = 1;
-
+	double rot = 1;
 	//functions and methods
 	Tank();
 	void BuildTree();
@@ -59,8 +59,8 @@ public:
 	void DrawUpperBase();
 	void DrawTurrent();
 	void MoveForward();
-	void Rotate(double angle, float x, float y, float z);
-	void TankRotate(double angle);
+	void TurrentRotate(double angle);
+	void TankRotate();
 	float degToRad(float degAngle);
 	void HandleKeyDown(WPARAM wParam);
 	void HandleKeyUp(WPARAM wParam);
