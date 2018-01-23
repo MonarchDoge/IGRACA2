@@ -10,6 +10,25 @@
 #include <gl\GL.h>
 #include<gl\GLU.h>
 
+//for timer/clock
+__int64 startTimeInCounts = 0;
+__int64 lastTimeInCounts = 0;
+__int64 countsPerSecond;
+
+//for the tank accleration speeds
+double currentvelocity = 0;
+double accleration;
+double deltatime;
+double distance;
+bool WisPressed = false;
+bool SisPressed = false;
+enum Tankstate {
+	ACCELERATING, MAX_VELOCITY, DECELERATION, STANDSTIL
+};
+Tankstate tankstate;
+Clock* clock;
+double dist = 1;
+
 Tank::Tank() {
 	redPlasticMaterial = {
 	{ 0.4f, 0.0f, 0.0f, 1.0f }, // Ambient 
@@ -29,7 +48,11 @@ Tank::Tank() {
 	{ 0.8f, 0.8f, 0.8f, 1.0f }, // Specular  
 	32   // Shininess 
 	};
+
+	clock = new Clock;
+	clock->Start();
 	TurrentHeight = 1.5;
+
 	BuildTree();
 }
 
@@ -68,28 +91,29 @@ void Tank::DrawTree(TreeNode* root) {
 }
 
 void Tank::HandleKeyDown(WPARAM wParam) {
-	double dist = 0.1;
 	glPushMatrix();
 	glLoadIdentity();
 	switch (wParam) {
 	case 'W':
+		dist = 1;
 		glMultMatrixf(base->matrix);
-		MoveForward(dist);
 		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+		WisPressed = true;
 		break;
 	case 'S':
+		dist = -1;
 		glMultMatrixf(base->matrix);
-		MoveForward(-dist);
 		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+		SisPressed = true;
 		break;
 	case 'D':
 		glMultMatrixf(base->matrix);
-		Rotate(-10, 0, 0, 1);
+		TankRotate(-10);
 		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
 		break;
 	case 'A':
 		glMultMatrixf(base->matrix);
-		Rotate(10, 0, 0, 1);
+		TankRotate(10);
 		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
 		break;
 	case VK_LEFT:
@@ -113,17 +137,31 @@ void Tank::HandleKeyDown(WPARAM wParam) {
 		glGetFloatv(GL_MODELVIEW_MATRIX, turrent->matrix);
 		break;
 	}
+
 	glPopMatrix();
 }
 
-void Tank::DrawUpperBase() {
-	GLUquadric *Object = gluNewQuadric();
-	glMaterialfv(GL_FRONT, GL_AMBIENT, yellowPlasticMaterial.ambient);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, yellowPlasticMaterial.diffuse);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, yellowPlasticMaterial.specular);
-	glMaterialfv(GL_FRONT, GL_SHININESS, yellowPlasticMaterial.shininess);
-	gluSphere(Object, 0.25, 64, 64);
+void Tank::HandleKeyUp(WPARAM wParam) {
+	glPushMatrix();
+	glLoadIdentity();
+	switch (wParam) {
+	case 'W':
+		dist = 1;
+		glMultMatrixf(base->matrix);
+		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+		WisPressed = false;
+		break;
+	case 'S':
+		dist = -1;
+		glMultMatrixf(base->matrix);
+		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+		SisPressed = false;
+		break;
+	}
+
+	glPopMatrix();
 }
+
 
 void Tank::DrawBase() {
 	GLUquadric *Object = gluNewQuadric();
@@ -183,6 +221,15 @@ void Tank::DrawBase() {
 	glPopMatrix();
 }
 
+void Tank::DrawUpperBase() {
+	GLUquadric *Object = gluNewQuadric();
+	glMaterialfv(GL_FRONT, GL_AMBIENT, yellowPlasticMaterial.ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, yellowPlasticMaterial.diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, yellowPlasticMaterial.specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, yellowPlasticMaterial.shininess);
+	gluSphere(Object, 0.25, 64, 64);
+}
+
 void Tank::DrawTurrent() {
 	GLUquadric *Object = gluNewQuadric();
 	glMaterialfv(GL_FRONT, GL_AMBIENT, greenPlasticMaterial.ambient);
@@ -193,42 +240,6 @@ void Tank::DrawTurrent() {
 	glRotatef(-45, 1, 0, 0);
 	gluCylinder(Object, .15, .15, TurrentHeight, 16, 16);
 	glPopMatrix();
-}
-
-void Tank::MoveForward(double dist) {
-	//// Movement must be based on orientation of player
-	//double deltaX = 0;
-	//double deltaZ = 0;
-	//double deltaY = 0;
-
-	//// Calculate translation as based on current yRotation angle
-	//deltaX = -dist * sin(degToRad(yRotation));
-	//deltaY = dist * cos(degToRad(yRotation));
-
-	//// Update the position
-	//xPos = xPos + deltaX;
-	//yPos = yPos + deltaY;
-	//glTranslatef(xPos, yPos, 0);
-
-	glTranslatef(0, dist, 0);
-}
-
-void Tank::Rotate(double angle, float x, float y, float z) {
-	// Update the rotation (yaw) 
-	if (x == 1) {
-		yRotation = yRotation + angle;
-	}
-	if (yRotation > -45)
-	{
-		yRotation = -45;
-		angle = 0;
-	}
-	if (yRotation < -90)
-	{
-		yRotation = -90;
-		angle = 0;
-	}
-	glRotatef(angle, x, y, z);
 }
 
 float Tank::degToRad(float degAngle) {
@@ -264,4 +275,68 @@ void Tank::BuildTree() {
 	upperbase->child = turrent;
 }
 
+void Tank::MoveForward() {
 
+	deltatime = clock->TimePassedSincePreviousTime();
+	if (WisPressed == true || SisPressed == true) {
+		tankstate = ACCELERATING;
+	}
+
+	switch (tankstate) {
+	case ACCELERATING:
+		if (currentvelocity >= 0.1) {
+			tankstate = MAX_VELOCITY;
+		}
+		accleration = 0.5;
+		if (!WisPressed && !SisPressed) {
+			tankstate = DECELERATION;
+		}
+		break;
+	case MAX_VELOCITY:
+		accleration = 0;
+		if (!WisPressed && !SisPressed) {
+			tankstate = DECELERATION;
+		}
+		break;
+
+	case DECELERATION:
+		if (currentvelocity <= 0) {
+			tankstate = STANDSTIL;
+		}
+		accleration = -0.8;
+		break;
+	case STANDSTIL:
+		accleration = 0;
+		currentvelocity = 0;
+		break;
+	default:
+		break;
+	}
+
+	currentvelocity += accleration * deltatime;
+	distance += deltatime * currentvelocity;
+	glTranslatef(-dist*distance*sin(degToRad(yRotation)), 0, -dist*distance*cos(degToRad(yRotation)));
+}
+
+void Tank::TankRotate(double angle) {
+	// Update the rotation (yaw) 
+	yRotation = yRotation + angle;
+}
+
+void Tank::Rotate(double angle, float x, float y, float z) {
+	// Update the rotation (yaw) 
+	if (x == 1) {
+		Rotationlimit = Rotationlimit + angle;
+	}
+	if (Rotationlimit > -45)
+	{
+		Rotationlimit = -45;
+		angle = 0;
+	}
+	if (Rotationlimit < -90)
+	{
+		Rotationlimit = -90;
+		angle = 0;
+	}
+	glRotatef(angle, x, y, z);
+}

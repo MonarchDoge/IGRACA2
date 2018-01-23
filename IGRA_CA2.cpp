@@ -12,8 +12,6 @@
 #include <gl\GL.h>
 #include<gl\GLU.h>
 
-#include "Square.h"
-#include "Shapes.h"
 #include "Tank.h"
 #include <vector>
 #include "Vector3f.h"
@@ -38,33 +36,26 @@ HWND hWnd = NULL;
 Tank * newTank;
 float yrot = 0.0;
 GLUquadric *mySphere;
-__int64 startTimeInCounts = 0;
-__int64 lastTimeInCounts = 0;
-__int64 countsPerSecond;
+//__int64 startTimeInCounts = 0;
+//__int64 lastTimeInCounts = 0;
+//__int64 countsPerSecond;
 // The current rotation angle of the cube
 float yRot = 0;
 // We assume cube takes 10 seconds to make a full rotation
-double rotationalVelocityInDegreesPerSeconds = 36.0;
-//for cube speeds
-double currentvelocity;
-double accleration;
-double deltatime;
-enum Cubestate {
-	ACCELERATING, MAX_VELOCITY, DECELERATION, STANDSTIL
-};
-Cubestate cubestate = ACCELERATING;
-double timestamp;
-//clock
-Clock* clock;
-double frameratesegment;
-double frameratetimer;
-
-//added for assignment
-//bool Square, Circle, Triangle, Red, Green, Blue, Wireframe, Solid;
-Shape::color Colorshape;
-Shape::mode Modeshape;
-Shape::shape Shapeshape;
-std::vector<Shape> drawShape;
+//double rotationalVelocityInDegreesPerSeconds = 36.0;
+////for cube speeds
+//double currentvelocity;
+//double accleration;
+//double deltatime;
+//enum Cubestate {
+//	ACCELERATING, MAX_VELOCITY, DECELERATION, STANDSTIL
+//};
+//Cubestate cubestate = ACCELERATING;
+//double timestamp;
+////clock
+//Clock* clock;
+//double frameratesegment;
+//double frameratetimer;
 
 GLuint PixelFormat;
 GLubyte image[64][64][3]; //for image texturing
@@ -238,55 +229,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// Parse the menu selections:
 		switch (wmId)
 		{
-		case ID_DANKSHAPES_DANKSQUARE:
-			CheckMenuItem(GetMenu(hWnd), ID_DANKSHAPES_DANKSQUARE, MF_CHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKSHAPES_DANKCIRCLE, MF_UNCHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKSHAPES_DANKTRIANGLE, MF_UNCHECKED);
-			Shapeshape = Shape::shape::SQUARE_SHAPE;
-			break;
-		case ID_DANKSHAPES_DANKCIRCLE:
-			CheckMenuItem(GetMenu(hWnd), ID_DANKSHAPES_DANKSQUARE, MF_UNCHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKSHAPES_DANKCIRCLE, MF_CHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKSHAPES_DANKTRIANGLE, MF_UNCHECKED);
-			Shapeshape = Shape::shape::CIRCLE_SHAPE;
-			break;
-		case ID_DANKSHAPES_DANKTRIANGLE:
-			CheckMenuItem(GetMenu(hWnd), ID_DANKSHAPES_DANKSQUARE, MF_UNCHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKSHAPES_DANKCIRCLE, MF_UNCHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKSHAPES_DANKTRIANGLE, MF_CHECKED);
-			Shapeshape = Shape::shape::TRIANGLE_SHAPE;
-			break;
-
-		case ID_DANKERCOLOUR_DANKERRED:
-			CheckMenuItem(GetMenu(hWnd), ID_DANKERCOLOUR_DANKERRED, MF_CHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKERCOLOUR_DANKERGREEN, MF_UNCHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKERCOLOUR_DANKERBLUE, MF_UNCHECKED);
-			Colorshape = Shape::color::RED_COLOR;
-			break;
-		case ID_DANKERCOLOUR_DANKERGREEN:
-			CheckMenuItem(GetMenu(hWnd), ID_DANKERCOLOUR_DANKERRED, MF_UNCHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKERCOLOUR_DANKERGREEN, MF_CHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKERCOLOUR_DANKERBLUE, MF_UNCHECKED);
-			Colorshape = Shape::color::GREEN_COLOR;
-			break;
-		case ID_DANKERCOLOUR_DANKERBLUE:
-			CheckMenuItem(GetMenu(hWnd), ID_DANKERCOLOUR_DANKERRED, MF_UNCHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKERCOLOUR_DANKERGREEN, MF_UNCHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKERCOLOUR_DANKERBLUE, MF_CHECKED);
-			Colorshape = Shape::color::BLUE_COLOR;
-			break;
-
-		case ID_DANKESTMODE_DANKESTWIREFRAME:
-			CheckMenuItem(GetMenu(hWnd), ID_DANKESTMODE_DANKESTWIREFRAME, MF_CHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKESTMODE_DANKESTFILLED, MF_UNCHECKED);
-			Modeshape = Shape::mode::DRAW_WIREFRAME_MODE;
-			break;
-		case ID_DANKESTMODE_DANKESTFILLED:
-			CheckMenuItem(GetMenu(hWnd), ID_DANKESTMODE_DANKESTWIREFRAME, MF_UNCHECKED);
-			CheckMenuItem(GetMenu(hWnd), ID_DANKESTMODE_DANKESTFILLED, MF_CHECKED);
-			Modeshape = Shape::mode::DRAW_SOLID_MODE;
-			break;
-
 		case IDM_ABOUT:
 			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
 			break;
@@ -327,12 +269,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		*/
 		//convert mouse click coordinate to opengl coordinate
 		convertWindowToOpenGLCoordinates(mouseX, mouseY, xPosCircle, yPosCircle);
-
-		//sq->HandleLButtonDown(xPosCircle, yPosCircle);
-		//Shapes sq(xPosCircle, yPosCircle, Square, Circle, Triangle, Red, Green, Blue, Wireframe, Solid);
-		Shape sq(xPosCircle, yPosCircle, Colorshape, Modeshape, Shapeshape);
-		drawShape.push_back(sq);
-
 		break;
 	}
 
@@ -340,7 +276,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-				   //dont use
+	//dont use
 	case WM_MOUSEMOVE:
 	{
 		// Get the left mouse press coordinates
@@ -362,6 +298,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	case WM_KEYUP:								// Has A Key Been Released?
 	{
+		newTank->HandleKeyUp(wParam);
 		keys[wParam] = FALSE;					// If So, Mark It As FALSE
 		return 0;								// Jump Back
 	}
@@ -595,8 +532,8 @@ int InitOpenGL() {
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	CreateColuredRectTexture();
 
-	clock = new Clock;
-	clock->Start();
+	//clock = new Clock;
+	//clock->Start();
 
 	newTank = new Tank();
 	return 1;
@@ -1342,101 +1279,101 @@ void DrawTexturedCube() {
 	}
 }
 
-void StartTimer() {
-	__int64 currentTimeInCounts;
-	// countsPerSecond depends on your PC
-	if (!QueryPerformanceFrequency(
-		(LARGE_INTEGER *)&countsPerSecond)) {
-		MessageBox(NULL, L"QueryPerformanceFrequency Failed.", L"ERROR", MB_OK | MB_ICONINFORMATION);
-		return;
-	}
-	QueryPerformanceCounter((LARGE_INTEGER *)&currentTimeInCounts);
-	startTimeInCounts = currentTimeInCounts;
-	lastTimeInCounts = currentTimeInCounts;
-}
-
-// Return absolute time in seconds -since start
-double GetTimePassedSinceStart() {
-	__int64 currentTimeInCounts;
-	double timePassedSeconds;
-
-	// Calculate time passed in seconds since timer was started
-	QueryPerformanceCounter((LARGE_INTEGER *)&currentTimeInCounts);
-	timePassedSeconds = (currentTimeInCounts - startTimeInCounts) / (double)countsPerSecond;
-	return timePassedSeconds;
-}
-
-// Return relative time in seconds - since last measurement
-double GetTimePassedSinceLastTime() {
-	__int64 currentTimeInCounts, timePassedSinceLastTimeInCounts;
-
-	// Calculate time passed in seconds since last call to
-	// GetTimePassedSinceLastTime
-	QueryPerformanceCounter((LARGE_INTEGER *)&currentTimeInCounts);
-	timePassedSinceLastTimeInCounts = currentTimeInCounts - lastTimeInCounts;
-	double timePassedSinceLastTimeInSeconds = (currentTimeInCounts - lastTimeInCounts) / (double)countsPerSecond;
-
-	lastTimeInCounts = currentTimeInCounts;
-	return timePassedSinceLastTimeInSeconds;
-}
-
-void GottaGoFast() {
-	string statetext;
-	deltatime = clock->TimePassedSincePreviousTime();
-	glPushMatrix();
-
-	switch (cubestate) {
-	case ACCELERATING:
-		if (currentvelocity >= 360) {
-			cubestate = MAX_VELOCITY;
-			timestamp = clock->TimePassedSinceStartTime() + 2;
-		}
-		accleration = 20;
-		statetext = "ACCERLERATING";
-		break;
-	case MAX_VELOCITY:
-		accleration = 0;
-		if (clock->TimePassedSinceStartTime() >= timestamp) {
-			cubestate = DECELERATION;
-		}
-		statetext = "MAX_VELOCITY";
-		break;
-	case DECELERATION:
-		accleration = -40;
-		if (currentvelocity <= 0) {
-			cubestate = STANDSTIL;
-		}
-		statetext = "DECELERATION";
-		break;
-	case STANDSTIL:
-		accleration = 0;
-		statetext = "STAND_STIL";
-		break;
-	default:
-		statetext = "STAND_STIL";
-		break;
-	}
-
-	currentvelocity += accleration * deltatime;
-
-	yRot += deltatime * currentvelocity;
-	glRotatef(yRot, 0, 1, 0);
-	DrawTexturedCube();
-	glPopMatrix();
-
-	frameratetimer += deltatime;
-	frameratesegment++;
-	if (frameratetimer >= 1)
-	{
-		int framerate = (frameratesegment / frameratetimer) * 10000;
-		string text = std::to_string(framerate);
-		std::string str = text + " Fps, state is " + statetext;
-		LPSTR s = const_cast<char *>(str.c_str());
-		SetWindowTextA(hWnd, s);
-		frameratetimer = 0;
-		frameratesegment = 0;
-	}
-}
+//void StartTimer() {
+//	__int64 currentTimeInCounts;
+//	// countsPerSecond depends on your PC
+//	if (!QueryPerformanceFrequency(
+//		(LARGE_INTEGER *)&countsPerSecond)) {
+//		MessageBox(NULL, L"QueryPerformanceFrequency Failed.", L"ERROR", MB_OK | MB_ICONINFORMATION);
+//		return;
+//	}
+//	QueryPerformanceCounter((LARGE_INTEGER *)&currentTimeInCounts);
+//	startTimeInCounts = currentTimeInCounts;
+//	lastTimeInCounts = currentTimeInCounts;
+//}
+//
+//// Return absolute time in seconds -since start
+//double GetTimePassedSinceStart() {
+//	__int64 currentTimeInCounts;
+//	double timePassedSeconds;
+//
+//	// Calculate time passed in seconds since timer was started
+//	QueryPerformanceCounter((LARGE_INTEGER *)&currentTimeInCounts);
+//	timePassedSeconds = (currentTimeInCounts - startTimeInCounts) / (double)countsPerSecond;
+//	return timePassedSeconds;
+//}
+//
+//// Return relative time in seconds - since last measurement
+//double GetTimePassedSinceLastTime() {
+//	__int64 currentTimeInCounts, timePassedSinceLastTimeInCounts;
+//
+//	// Calculate time passed in seconds since last call to
+//	// GetTimePassedSinceLastTime
+//	QueryPerformanceCounter((LARGE_INTEGER *)&currentTimeInCounts);
+//	timePassedSinceLastTimeInCounts = currentTimeInCounts - lastTimeInCounts;
+//	double timePassedSinceLastTimeInSeconds = (currentTimeInCounts - lastTimeInCounts) / (double)countsPerSecond;
+//
+//	lastTimeInCounts = currentTimeInCounts;
+//	return timePassedSinceLastTimeInSeconds;
+//}
+//
+//void GottaGoFast() {
+//	string statetext;
+//	deltatime = clock->TimePassedSincePreviousTime();
+//	glPushMatrix();
+//
+//	switch (cubestate) {
+//	case ACCELERATING:
+//		if (currentvelocity >= 360) {
+//			cubestate = MAX_VELOCITY;
+//			timestamp = clock->TimePassedSinceStartTime() + 2;
+//		}
+//		accleration = 20;
+//		statetext = "ACCERLERATING";
+//		break;
+//	case MAX_VELOCITY:
+//		accleration = 0;
+//		if (clock->TimePassedSinceStartTime() >= timestamp) {
+//			cubestate = DECELERATION;
+//		}
+//		statetext = "MAX_VELOCITY";
+//		break;
+//	case DECELERATION:
+//		accleration = -40;
+//		if (currentvelocity <= 0) {
+//			cubestate = STANDSTIL;
+//		}
+//		statetext = "DECELERATION";
+//		break;
+//	case STANDSTIL:
+//		accleration = 0;
+//		statetext = "STAND_STIL";
+//		break;
+//	default:
+//		statetext = "STAND_STIL";
+//		break;
+//	}
+//
+//	currentvelocity += accleration * deltatime;
+//
+//	yRot += deltatime * currentvelocity;
+//	glRotatef(yRot, 0, 1, 0);
+//	DrawTexturedCube();
+//	glPopMatrix();
+//
+//	frameratetimer += deltatime;
+//	frameratesegment++;
+//	if (frameratetimer >= 1)
+//	{
+//		int framerate = (frameratesegment / frameratetimer) * 10000;
+//		string text = std::to_string(framerate);
+//		std::string str = text + " Fps, state is " + statetext;
+//		LPSTR s = const_cast<char *>(str.c_str());
+//		SetWindowTextA(hWnd, s);
+//		frameratetimer = 0;
+//		frameratesegment = 0;
+//	}
+//}
 
 //IGRA CA2
 void DrawDankPlane() {
@@ -1467,7 +1404,7 @@ void DrawDankPlane() {
 
 //ayy lmao
 void DrawGLScene() {
-	void StartTimer();
+	//void StartTimer();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(1, 1, 1, 1); // White
 
@@ -1478,14 +1415,13 @@ void DrawGLScene() {
 	gluLookAt(xPosCircle * 10, yPosCircle * 10, 10, // Camera's position
 		0, 0, 0, // Camera's target to look at
 		0, 1, 0); // Orientation of camera
-	// Draw axis system
-	Draw3D_AxisSystem();
-
+	glPushMatrix();
 	glEnable(GL_LIGHTING);
+	newTank->MoveForward();
 	newTank->Draw();
-	DrawDankPlane();
 	glEnd();
 	glDisable(GL_LIGHTING);
 	glPopMatrix();
+	DrawDankPlane();
 }
 
