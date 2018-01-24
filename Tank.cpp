@@ -82,10 +82,10 @@ void Tank::HandleKeyDown(WPARAM wParam) {
 		SisPressed = true;
 		break;
 	case 'D':
-		yRotation += 1;
+		Dispressed = true;
 		break;
 	case 'A':
-		yRotation -= 1;
+		Aispressed = true;
 		break;
 	case VK_LEFT:
 		glMultMatrixf(upperbase->matrix);
@@ -117,16 +117,16 @@ void Tank::HandleKeyUp(WPARAM wParam) {
 	glLoadIdentity();
 	switch (wParam) {
 	case 'W':
-		dist = 1;
-		glMultMatrixf(base->matrix);
-		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
 		WisPressed = false;
 		break;
 	case 'S':
-		dist = -1;
-		glMultMatrixf(base->matrix);
-		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
 		SisPressed = false;
+		break;
+	case 'D':
+		Dispressed = false;
+		break;
+	case 'A':
+		Aispressed = false;
 		break;
 	}
 
@@ -193,6 +193,7 @@ void Tank::DrawBase() {
 
 void Tank::DrawUpperBase() {
 	GLUquadric *Object = gluNewQuadric();
+	glFrontFace(GL_CCW); // Front face is clockwise
 	glMaterialfv(GL_FRONT, GL_AMBIENT, yellowPlasticMaterial.ambient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, yellowPlasticMaterial.diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, yellowPlasticMaterial.specular);
@@ -218,7 +219,6 @@ float Tank::degToRad(float degAngle) {
 }
 
 void Tank::BuildTree() {
-
 	glMatrixMode(GL_MODELVIEW); // The root of the tree (represents the base of Robot Arm)   
 	base = new TreeNode;
 	base->child = 0;
@@ -247,6 +247,16 @@ void Tank::BuildTree() {
 
 void Tank::Update() {
 	double deltaTime = clock->TimePassedSincePreviousTime();
+
+	if (Aispressed) yRotation += turnSpeed * deltaTime;
+	if (Dispressed) yRotation -= turnSpeed * deltaTime;
+
+	glPushMatrix();
+	glLoadIdentity();
+	glRotatef(-90, 1, 0, 0);
+	glRotatef(yRotation, 0, 0, 1);
+	glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+	glPopMatrix();
 }
 
 void Tank::TurrentRotate(float angle) {

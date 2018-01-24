@@ -43,11 +43,10 @@ public:
 	double Rotationlimit = -45;
 	double yRotation = 0;
 
+	double turnSpeed = 90;
+
 	//Misc
 	float TurrentHeight;
-
-	double dist = 1;
-	double rot = 1;
 
 	//for timer/clock
 	__int64 startTimeInCounts = 0;
@@ -57,6 +56,8 @@ public:
 	//for the tank accleration speeds
 	bool WisPressed = false;
 	bool SisPressed = false;
+	bool Dispressed = false;
+	bool Aispressed = false;
 	Clock* clock;
 
 	//functions and methods

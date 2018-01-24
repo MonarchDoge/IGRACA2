@@ -546,6 +546,7 @@ float degToRad(float degAngle) {
 
 //IGRA CA2
 void DrawDankPlane() {
+	glFrontFace(GL_CW); // Front face is clockwise
 	glEnable(GL_TEXTURE_2D);
 	glColor3f(1, 1, 1);
 
@@ -581,7 +582,7 @@ void DrawGLScene() {
 	//origin (the intersection of the axis system)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity(); // IMPORTANT
-	gluLookAt(xPosCircle * 10, yPosCircle * 10, 10, // Camera's position
+	gluLookAt(xPosCircle * 10, max(yPosCircle * 10, 0), 10, // Camera's position
 		0, 0, 0, // Camera's target to look at
 		0, 1, 0); // Orientation of camera
 
