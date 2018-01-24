@@ -10,26 +10,6 @@
 #include <gl\GL.h>
 #include<gl\GLU.h>
 
-//for timer/clock
-__int64 startTimeInCounts = 0;
-__int64 lastTimeInCounts = 0;
-__int64 countsPerSecond;
-
-//for the tank accleration speeds
-double currentvelocity = 0;
-double accleration;
-double deltatime;
-double distance;
-bool WisPressed = false;
-bool SisPressed = false;
-enum Tankstate {
-	ACCELERATING, MAX_VELOCITY, DECELERATION, STANDSTIL
-};
-Tankstate tankstate;
-Clock* clock;
-double dist = 1;
-double rot  = 1;
-
 Tank::Tank() {
 	redPlasticMaterial = {
 	{ 0.4f, 0.0f, 0.0f, 1.0f }, // Ambient 
@@ -96,26 +76,16 @@ void Tank::HandleKeyDown(WPARAM wParam) {
 	glLoadIdentity();
 	switch (wParam) {
 	case 'W':
-		dist = 1;
-		glMultMatrixf(base->matrix);
-		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
 		WisPressed = true;
 		break;
 	case 'S':
-		dist = -1;
-		glMultMatrixf(base->matrix);
-		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
 		SisPressed = true;
 		break;
 	case 'D':
-		rot = 1;
-		glMultMatrixf(base->matrix);
-		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+		yRotation += 1;
 		break;
 	case 'A':
-		rot = -1;
-		glMultMatrixf(base->matrix);
-		glGetFloatv(GL_MODELVIEW_MATRIX, base->matrix);
+		yRotation -= 1;
 		break;
 	case VK_LEFT:
 		glMultMatrixf(upperbase->matrix);
@@ -243,8 +213,8 @@ void Tank::DrawTurrent() {
 }
 
 float Tank::degToRad(float degAngle) {
-	double pi = 3.1415926535; // You could be more precise!
-	return degAngle / 180.0 * pi;
+	float pi = 3.1415f; // You could be more precise!
+	return degAngle / 180 * pi;
 }
 
 void Tank::BuildTree() {
@@ -261,70 +231,25 @@ void Tank::BuildTree() {
 	upperbase = new TreeNode;
 	upperbase->child = 0;
 	upperbase->drawFunctionID = DRAW_UPPERBASE_FUNCTION_ID;
-	glTranslatef(0, 0, 0.4);
+	glTranslatef(0, 0, 0.4f);
 	glGetFloatv(GL_MODELVIEW_MATRIX, upperbase->matrix);
 
 	glLoadIdentity();
 	turrent = new TreeNode;
 	turrent->child = 0;
 	turrent->drawFunctionID = DRAW_TURRENT_FUNCTION_ID;
-	glTranslatef(0, 0, 0.1);
+	glTranslatef(0, 0, 0.1f);
 	glGetFloatv(GL_MODELVIEW_MATRIX, turrent->matrix);
 
 	base->child = upperbase;
 	upperbase->child = turrent;
 }
 
-void Tank::MoveForward() {
-
-	deltatime = clock->TimePassedSincePreviousTime();
-	if (WisPressed == true || SisPressed == true) {
-		tankstate = ACCELERATING;
-	}
-
-	switch (tankstate) {
-	case ACCELERATING:
-		if (currentvelocity >= 0.1) {
-			tankstate = MAX_VELOCITY;
-		}
-		accleration = 0.5;
-		if (!WisPressed && !SisPressed) {
-			tankstate = DECELERATION;
-		}
-		break;
-	case MAX_VELOCITY:
-		accleration = 0;
-		if (!WisPressed && !SisPressed) {
-			tankstate = DECELERATION;
-		}
-		break;
-
-	case DECELERATION:
-		if (currentvelocity <= 0) {
-			tankstate = STANDSTIL;
-		}
-		accleration = -0.8;
-		break;
-	case STANDSTIL:
-		accleration = 0;
-		currentvelocity = 0;
-		break;
-	default:
-		break;
-	}
-
-	currentvelocity += accleration * deltatime;
-	distance += deltatime * currentvelocity;
-	glTranslatef(distance*sin(degToRad(yRotation)), 0, distance*cos(degToRad(yRotation)));
+void Tank::Update() {
+	double deltaTime = clock->TimePassedSincePreviousTime();
 }
 
-void Tank::TankRotate() {
-	// Update the rotation (yaw) 
-	yRotation = yRotation + rot;
-}
-
-
-void Tank::TurrentRotate(double angle) {
+void Tank::TurrentRotate(float angle) {
 	if (Rotationlimit > -45)
 	{
 		Rotationlimit = -45;

@@ -1,13 +1,2 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise2\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (IGRA_LAB.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Tank.cpp
-c:\users\seppukudoge\documents\github\igraca2\tank.h(13): warning C4091: 'typedef ': ignored on left of 'TreeNode' when no variable is declared
-c:\users\seppukudoge\documents\github\igraca2\tank.h(20): warning C4091: 'typedef ': ignored on left of 'Material' when no variable is declared
-c:\users\seppukudoge\documents\github\igraca2\tank.h(25): warning C4091: '': ignored on left of 'TreeNode' when no variable is declared
-c:\users\seppukudoge\documents\github\igraca2\tank.h(26): warning C4091: '': ignored on left of 'Material' when no variable is declared
-c:\users\seppukudoge\documents\github\igraca2\tank.cpp(247): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\seppukudoge\documents\github\igraca2\tank.cpp(264): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-c:\users\seppukudoge\documents\github\igraca2\tank.cpp(271): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-c:\users\seppukudoge\documents\github\igraca2\tank.cpp(318): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\seppukudoge\documents\github\igraca2\tank.cpp(318): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\seppukudoge\documents\github\igraca2\tank.cpp(338): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-  IGRA_LAB.vcxproj -> C:\Users\SeppukuDoge\Documents\GitHub\IGRACA2\Debug\IGRA_CA2.exe
+﻿  IGRA_CA2.cpp
+  IGRA_LAB.vcxproj -> C:\Users\Ignis\Documents\SP\Year 2 Semester 2\IGRA\IGRACA2\Debug\IGRA_CA2.exe
