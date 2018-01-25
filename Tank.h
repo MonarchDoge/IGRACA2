@@ -6,6 +6,11 @@
 #include <gl\gl.h> // Header File For The OpenGL32 Library
 #include <gl\glu.h> // Header File For The GLu32 Library
 #include "Clock.h"
+#include "Projectile.h"
+#include <cmath>
+#include <vector>
+#include <map>
+#include "Material.h"
 
 struct TreeNode {
 	float matrix[16] = {};
@@ -13,16 +18,13 @@ struct TreeNode {
 	struct TreeNode* child;
 };
 
-struct Material{
-	GLfloat ambient[4];
-	GLfloat diffuse[4];
-	GLfloat specular[4];
-	GLfloat shininess[4];
-};
-
 #define DRAW_BASE_FUNCTION_ID  0 
 #define DRAW_UPPERBASE_FUNCTION_ID  1
 #define DRAW_TURRENT_FUNCTION_ID 2 
+
+#define BULLETSPEED_SLOW 0
+#define BULLETSPEED_MEDIUM 1
+#define BULLETSPEED_FAST 2
 
 class Tank {
 public:
@@ -39,26 +41,38 @@ public:
 	//Movement
 	double xPos = 0;
 	double yPos = 0; 
-	double zPos = 0;
-	double Rotationlimit = -45;
+
+	double xVel = 0;
+	double yVel = 0;
+
 	double yRotation = 0;
 
 	double turnSpeed = 90;
+	double maxSpeed = 3;
+	double acceleration = 6;
+	double friction = 3;
 
-	//Misc
+	int bulletSpeed = BULLETSPEED_SLOW;
+
+	//Turret
 	float TurrentHeight;
+
+	double turretRotHorizontal = 0;
+	double turretRotVertical = 0;
+
+	double turretTurnSpeed = 180;
+	double turretAltSpeed = 45;
+
+	std::vector<Projectile> projectiles;
 
 	//for timer/clock
 	__int64 startTimeInCounts = 0;
 	__int64 lastTimeInCounts = 0;
 	__int64 countsPerSecond;
-
-	//for the tank accleration speeds
-	bool WisPressed = false;
-	bool SisPressed = false;
-	bool Dispressed = false;
-	bool Aispressed = false;
 	Clock* clock;
+
+	// I/O
+	std::map<WPARAM, bool> keysDown;
 
 	//functions and methods
 	Tank();
@@ -74,6 +88,8 @@ public:
 	float degToRad(float degAngle);
 	void HandleKeyDown(WPARAM wParam);
 	void HandleKeyUp(WPARAM wParam);
+	void OrbitTank(float x, float y);
+	double GetRealBulletSpeed(int bulletSpeed);
 	~Tank();
 };
 

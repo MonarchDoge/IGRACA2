@@ -200,6 +200,22 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	return TRUE;
 }
 
+void convertWindowToOpenGLCoordinates(int xWinPos, int yWinPos, float &xOpenGLPos, float &yOpenGLPos) {
+	//Normalise pixels and fix offsets
+		//stop user from fucking around
+	float normaliseXWinPos = xWinPos * 2.0f / width;
+	float normaliseYWinPos = (yWinPos + 60) * 2.0f / height;
+	xOpenGLPos = normaliseXWinPos > 1 ? normaliseXWinPos - 1 : 0 - (1 - normaliseXWinPos);
+	yOpenGLPos = normaliseYWinPos > 1 ? ((0 - (1 - normaliseYWinPos)) * -1) : abs(normaliseYWinPos - 1);
+}
+
+void SetBulletSpeed(int wmId) {
+	CheckMenuRadioItem(GetMenu(hWnd), ID_BULLETSPEED_SLOW, ID_BULLETSPEED_FAST, wmId, MF_BYCOMMAND);
+	if (wmId == ID_BULLETSPEED_SLOW) newTank->bulletSpeed = BULLETSPEED_SLOW;
+	if (wmId == ID_BULLETSPEED_MEDIUM) newTank->bulletSpeed = BULLETSPEED_MEDIUM;
+	if (wmId == ID_BULLETSPEED_FAST) newTank->bulletSpeed = BULLETSPEED_FAST;
+}
+
 //
 //  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
@@ -210,15 +226,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - post a quit message and return
 //
 //
-void convertWindowToOpenGLCoordinates(int xWinPos, int yWinPos, float &xOpenGLPos, float &yOpenGLPos) {
-	//Normalise pixels and fix offsets
-		//stop user from fucking around
-	float normaliseXWinPos = xWinPos * 2.0f / width;
-	float normaliseYWinPos = (yWinPos + 60) * 2.0f / height;
-	xOpenGLPos = normaliseXWinPos > 1 ? normaliseXWinPos - 1 : 0 - (1 - normaliseXWinPos);
-	yOpenGLPos = normaliseYWinPos > 1 ? ((0 - (1 - normaliseYWinPos)) * -1) : abs(normaliseYWinPos - 1);
-}
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -234,6 +241,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case IDM_EXIT:
 			DestroyWindow(hWnd);
+			break;
+		case ID_BULLETSPEED_FAST:
+		case ID_BULLETSPEED_MEDIUM:
+		case ID_BULLETSPEED_SLOW:
+			SetBulletSpeed(wmId);
 			break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
@@ -536,6 +548,7 @@ int InitOpenGL() {
 	//clock->Start();
 
 	newTank = new Tank();
+	SetBulletSpeed(ID_BULLETSPEED_MEDIUM);
 	return 1;
 }
 
@@ -582,17 +595,12 @@ void DrawGLScene() {
 	//origin (the intersection of the axis system)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity(); // IMPORTANT
-	gluLookAt(xPosCircle * 10, max(yPosCircle * 10, 0), 10, // Camera's position
-		0, 0, 0, // Camera's target to look at
-		0, 1, 0); // Orientation of camera
+	newTank->OrbitTank(xPosCircle, yPosCircle);
 
-	glPushMatrix();
 	glEnable(GL_LIGHTING);
 	newTank->Update();
 	newTank->Draw();
 	glEnd();
 	glDisable(GL_LIGHTING);
-	glPopMatrix();
 	DrawDankPlane();
 }
-
