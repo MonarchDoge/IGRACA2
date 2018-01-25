@@ -18,7 +18,6 @@ void Projectile::Draw()
 	// Direction
 	/*double */
 
-	GLUquadric *Object = gluNewQuadric();
 	glFrontFace(GL_CCW); // Front face is clockwise
 	glMaterialfv(GL_FRONT, GL_AMBIENT, projectileMaterial.ambient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, projectileMaterial.diffuse);
@@ -26,7 +25,7 @@ void Projectile::Draw()
 	glMaterialfv(GL_FRONT, GL_SHININESS, projectileMaterial.shininess);
 	glPushMatrix();
 	glTranslatef(posX, posY, posZ);
-	gluCylinder(Object, .15, .15, 1, 16, 16);
+	gluCylinder(gluNewQuadric(), .15, .15, 1, 16, 16);
 	glPopMatrix();
 }
 

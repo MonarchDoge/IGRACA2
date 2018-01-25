@@ -161,7 +161,6 @@ void Tank::DrawUpperBase() {
 }
 
 void Tank::DrawTurrent() {
-	GLUquadric *Object = gluNewQuadric();
 	glFrontFace(GL_CCW); // Front face is clockwise
 	glMaterialfv(GL_FRONT, GL_AMBIENT, greenPlasticMaterial.ambient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, greenPlasticMaterial.diffuse);
@@ -169,7 +168,9 @@ void Tank::DrawTurrent() {
 	glMaterialfv(GL_FRONT, GL_SHININESS, greenPlasticMaterial.shininess);
 	glPushMatrix();
 	glRotatef(90, 1, 0, 0);
-	gluCylinder(Object, .15, .15, TurrentHeight, 16, 16);
+	gluCylinder(gluNewQuadric(), .15, .15, TurrentHeight, 16, 16);
+	glTranslatef(0, 0, TurrentHeight);
+	gluDisk(gluNewQuadric(), 0, .15, 16, 1);
 	glPopMatrix();
 }
 
@@ -305,6 +306,5 @@ void Tank::TurrentRotate(float angle) {
 	double originalRotY = turretRotVertical;
 
 	turretRotVertical += angle;
-	if (turretRotVertical > 45) turretRotVertical = 45;
-	if (turretRotVertical < 0) turretRotVertical = 0;
+	turretRotVertical = min(max(turretRotVertical, 0), 45);
 }
