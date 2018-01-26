@@ -80,11 +80,16 @@ void Tank::HandleKeyDown(WPARAM wParam)
 	keysDown[wParam] = true;
 	switch (wParam) {
 	case VK_SPACE:
+		// Calculate projectile spawn point
+		double offsetY = TurrentHeight * sin(degToRad(turretRotVertical));
+		double topDownLength = TurrentHeight * cos(degToRad(turretRotVertical));
+		double offsetX = topDownLength * sin(degToRad(turretRotHorizontal));
+		double offsetZ = topDownLength * cos(degToRad(turretRotHorizontal));
 		// Spawn projectile
 		double velX = sin(degToRad(yRotation + turretRotHorizontal)) * cos(degToRad(turretRotVertical)) * GetRealBulletSpeed(bulletSpeed);
 		double velY = sin(degToRad(turretRotVertical)) * GetRealBulletSpeed(bulletSpeed);
 		double velZ = cos(degToRad(yRotation + turretRotHorizontal)) * cos(degToRad(turretRotVertical)) * GetRealBulletSpeed(bulletSpeed);
-		Projectile newProjectile = Projectile(xPos, 0, yPos, velX, velY, velZ);
+		Projectile newProjectile = Projectile(xPos + offsetX, 0.5 + offsetY, yPos + offsetY, velX, velY, velZ);
 		projectiles.push_back(newProjectile);
 		break;
 	}
