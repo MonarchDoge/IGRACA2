@@ -23,6 +23,7 @@ private:
 	double rotVertical = 0;
 
 	double gravity = 9.81;
+	double stopY = -0.4;
 
 public:
 	Projectile(double posX, double posY, double posZ, double velX, double velY, double velZ);

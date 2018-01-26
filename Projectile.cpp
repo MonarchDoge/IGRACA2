@@ -25,30 +25,27 @@ void Projectile::Draw()
 	glPushMatrix();
 	glTranslatef(posX, posY, posZ);
 	glRotatef(rotHorizontal, 0, 1, 0);
+	glRotatef(-rotVertical, 1, 0, 0);
 	gluCylinder(gluNewQuadric(), .15, .15, 1, 16, 16);
 	glPopMatrix();
 }
 
 void Projectile::Update(double deltaTime)
 {
-	// Apply gravity
-	velY -= gravity * deltaTime;
+	if (posY > stopY) {
+		// Apply gravity
+		velY -= gravity * deltaTime;
 
-	// Apply velocity
-	posX += velX * deltaTime;
-	posY += velY * deltaTime;
-	posZ += velZ * deltaTime;
+		// Apply velocity
+		posX += velX * deltaTime;
+		posY += velY * deltaTime;
+		posZ += velZ * deltaTime;
 
-	if (posY < -0.55) {
-		posY = -0.55;
-
-		velX = 0;
-		velY = 0;
-		velZ = 0;
+		// Calculate rotation based on velocity
+		rotHorizontal = radToDeg(atan2(velX, velZ));
+		double horizontalPlaneMag = sqrt(velX*velX + velZ*velZ);
+		rotVertical = radToDeg(atan2(velY, horizontalPlaneMag));
 	}
-
-	// Calculate rotation based on velocity
-	rotHorizontal = radToDeg(atan2(velZ, velX));
 }
 
 Projectile::~Projectile()

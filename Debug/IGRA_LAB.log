@@ -1,9 +1,9 @@
-﻿  RadDeg.cpp
-  Projectile.cpp
+﻿  Projectile.cpp
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\projectile.cpp(26): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\projectile.cpp(27): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\projectile.cpp(51): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  IGRA_CA2.cpp
+c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\projectile.cpp(28): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\projectile.cpp(45): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\projectile.cpp(47): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Generating Code...
   Compiling...
   Tank.cpp
@@ -22,4 +22,6 @@ c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(279): warnin
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(280): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
   Generating Code...
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(298): warning C4715: 'Tank::GetRealBulletSpeed': not all control paths return a value
+  Skipping... (no relevant changes detected)
+  IGRA_CA2.cpp
   IGRA_LAB.vcxproj -> C:\Users\Ignis\Documents\SP\Year 2 Semester 2\IGRA\IGRACA2\Debug\IGRA_CA2.exe
