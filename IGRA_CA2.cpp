@@ -10,7 +10,7 @@
 
 //for igra - openGL
 #include <gl\GL.h>
-#include<gl\GLU.h>
+#include <gl\GLU.h>
 
 #include "Tank.h"
 #include <vector>
@@ -550,11 +550,6 @@ int InitOpenGL() {
 	newTank = new Tank();
 	SetBulletSpeed(ID_BULLETSPEED_MEDIUM);
 	return 1;
-}
-
-float degToRad(float degAngle) {
-	float pi = 3.1415926535f; // You could be more precise!
-	return degAngle / 180.0f * pi;
 }
 
 //IGRA CA2

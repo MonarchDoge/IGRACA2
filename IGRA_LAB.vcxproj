@@ -145,6 +145,7 @@
     <ClInclude Include="IGRA_CA2.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="RadDeg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="stdafx.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="Clock.cpp" />
     <ClCompile Include="IGRA_CA2.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="RadDeg.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

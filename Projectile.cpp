@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Projectile.h"
 
-
 Projectile::Projectile(double posX, double posY, double posZ, double velX, double velY, double velZ) :
 	posX(posX), posY(posY), posZ(posZ), velX(velX), velY(velY), velZ(velZ)
 {
@@ -25,6 +24,7 @@ void Projectile::Draw()
 	glMaterialfv(GL_FRONT, GL_SHININESS, projectileMaterial.shininess);
 	glPushMatrix();
 	glTranslatef(posX, posY, posZ);
+	glRotatef(rotHorizontal, 0, 1, 0);
 	gluCylinder(gluNewQuadric(), .15, .15, 1, 16, 16);
 	glPopMatrix();
 }
@@ -46,6 +46,9 @@ void Projectile::Update(double deltaTime)
 		velY = 0;
 		velZ = 0;
 	}
+
+	// Calculate rotation based on velocity
+	rotHorizontal = radToDeg(atan2(velZ, velX));
 }
 
 Projectile::~Projectile()

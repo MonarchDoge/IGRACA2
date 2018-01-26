@@ -174,11 +174,6 @@ void Tank::DrawTurrent() {
 	glPopMatrix();
 }
 
-float Tank::degToRad(float degAngle) {
-	float pi = 3.1415f; // You could be more precise!
-	return degAngle / 180 * pi;
-}
-
 void Tank::BuildTree() {
 	glMatrixMode(GL_MODELVIEW); // The root of the tree (represents the base of Robot Arm)   
 	base = new TreeNode;

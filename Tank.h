@@ -11,6 +11,7 @@
 #include <vector>
 #include <map>
 #include "Material.h"
+#include "RadDeg.h"
 
 struct TreeNode {
 	float matrix[16] = {};
@@ -85,7 +86,6 @@ public:
 	void DrawTurrent();
 	void TurrentRotate(float angle);
 	void Update();
-	float degToRad(float degAngle);
 	void HandleKeyDown(WPARAM wParam);
 	void HandleKeyUp(WPARAM wParam);
 	void OrbitTank(float x, float y);

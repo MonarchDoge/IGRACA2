@@ -3,6 +3,8 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "Material.h"
+#include <cmath>
+#include "RadDeg.h"
 
 class Projectile
 {
@@ -16,6 +18,9 @@ private:
 	double velX;
 	double velY;
 	double velZ;
+
+	double rotHorizontal = 0;
+	double rotVertical = 0;
 
 	double gravity = 9.81;
 
