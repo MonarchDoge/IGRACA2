@@ -247,6 +247,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_BULLETSPEED_SLOW:
 			SetBulletSpeed(wmId);
 			break;
+		case ID_BULLETSPEED_CLEAR:
+			newTank->ClearProjectiles();
+			break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}

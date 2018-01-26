@@ -90,6 +90,7 @@ public:
 	void HandleKeyUp(WPARAM wParam);
 	void OrbitTank(float x, float y);
 	double GetRealBulletSpeed(int bulletSpeed);
+	void ClearProjectiles();
 	~Tank();
 };
 

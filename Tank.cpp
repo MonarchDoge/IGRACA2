@@ -302,6 +302,11 @@ double Tank::GetRealBulletSpeed(int bulletSpeed)
 	}
 }
 
+void Tank::ClearProjectiles()
+{
+	projectiles.clear();
+}
+
 void Tank::TurrentRotate(float angle) {
 	double originalRotY = turretRotVertical;
 
