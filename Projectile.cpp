@@ -5,8 +5,8 @@ Projectile::Projectile(double posX, double posY, double posZ, double velX, doubl
 	posX(posX), posY(posY), posZ(posZ), velX(velX), velY(velY), velZ(velZ)
 {
 	projectileMaterial = {
-	{ 0.0f, 0.4f, 0.0f, 1.0f }, // Ambient 
-	{ 0.0f, 0.9f, 0.0f, 1.0f }, // Diffuse 
+	{ 0.4f, 0.4f, 0.0f, 1.0f }, // Ambient 
+	{ 0.9f, 0.9f, 0.0f, 1.0f }, // Diffuse 
 	{ 0.8f, 0.8f, 0.8f, 1.0f }, // Specular  
 	32.0    // Shininess 
 	};
@@ -15,8 +15,6 @@ Projectile::Projectile(double posX, double posY, double posZ, double velX, doubl
 void Projectile::Draw()
 {
 	// Direction
-	/*double */
-
 	glFrontFace(GL_CCW); // Front face is clockwise
 	glMaterialfv(GL_FRONT, GL_AMBIENT, projectileMaterial.ambient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, projectileMaterial.diffuse);

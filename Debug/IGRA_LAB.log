@@ -1,24 +1,11 @@
 ﻿  Tank.cpp
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(43): warning C4018: '<': signed/unsigned mismatch
-c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(84): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(85): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(86): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(87): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(89): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(90): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(212): warning C4018: '<': signed/unsigned mismatch
-c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(225): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(226): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(268): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(269): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(274): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(275): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(284): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(285): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-  IGRA_CA2.cpp
-  Generating Code...
 c:\users\ignis\documents\sp\year 2 semester 2\igra\igraca2\tank.cpp(303): warning C4715: 'Tank::GetRealBulletSpeed': not all control paths return a value
-  Skipping... (no relevant changes detected)
-  RadDeg.cpp
   IGRA_LAB.vcxproj -> C:\Users\Ignis\Documents\SP\Year 2 Semester 2\IGRA\IGRACA2\Debug\IGRA_CA2.exe

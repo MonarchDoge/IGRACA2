@@ -1,4 +1,4 @@
 #pragma once
 
-double degToRad(float degAngle);
-double radToDeg(float radAngle);
+double degToRad(double degAngle);
+double radToDeg(double radAngle);
